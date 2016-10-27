@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BDBOAuth1Manager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -41,6 +42,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        TwitterClient.shared.requestToken = BDBOAuth1Credential(queryString: url.query)
+        TwitterClient.shared.fetchAccess(success: { (accessToken) in
+            
+            TwitterClient.shared.accessToken = accessToken
+            
+            // get your storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // instantiate your desired ViewController
+            let rootController = storyboard.instantiateViewController(withIdentifier: "HomeNavViewController") as! UINavigationController
+            
+            // Because self.window is an optional you should check it's value first and assign your rootViewController
+            if let window = self.window {
+                window.rootViewController = rootController
+            }
+            
+            }) { (error) in
+                print(error)
+        }
 
+        
+        return true
+    }
 }
 
