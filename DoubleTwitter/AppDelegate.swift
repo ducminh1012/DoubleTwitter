@@ -18,11 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        if let accessTokenQuery = UserDefaults.standard.string(forKey: "access_token_query"){
-         
-            let accessToken = BDBOAuth1Credential(queryString: accessTokenQuery)
-            
-            print(accessToken)
+        if User.currentUser != nil{
+            print("have current user")
             
             // get your storyboard
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -34,11 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let window = self.window {
                 window.rootViewController = rootController
             }
-
-        }
-        
-        if User.currentUser != nil{
-            print("have current user")
         }else{
             print("no current user")
         }

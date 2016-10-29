@@ -14,9 +14,9 @@ class User: NSObject {
     var profileUrl: URL?
     var userDescription: String?
     
-    var dictionary: [String: AnyObject]?
+    var dictionary: NSDictionary?
     
-    init(dictionary: [String: AnyObject]) {
+    init(dictionary: NSDictionary) {
         
         self.dictionary = dictionary
         name = dictionary["name"] as? String ?? ""
@@ -36,7 +36,7 @@ class User: NSObject {
                 
                 if let userData =  userData{
                     
-                    let dictionary = NSKeyedUnarchiver.unarchiveObject(with: userData) as! [String: AnyObject]
+                    let dictionary = try! JSONSerialization.jsonObject(with: userData, options: []) as! NSDictionary
                     
                     _currentUser = User(dictionary: dictionary)
                 }
@@ -54,17 +54,13 @@ class User: NSObject {
             
             if let user = user{
                 
-//                print(user.dictionary)
-                
-                let data = NSKeyedArchiver.archivedData(withRootObject: user.dictionary)
+                let data = try! JSONSerialization.data(withJSONObject: user.dictionary!, options: [])
 
                 
                 userDefault.set(data, forKey: "currentUserData")
             }else{
                 userDefault.set(nil, forKey: "currentUserData")
             }
-            
-            userDefault.set(user, forKey: "currentUser")
             
             userDefault.synchronize()
         }

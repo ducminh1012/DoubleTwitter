@@ -40,14 +40,31 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func getData(path: String, completion: @escaping (_ task: URLSessionDataTask,_ respone: Any?) -> (), failure: @escaping (_ task: URLSessionDataTask?,_ error: Error) -> () ){
         
-        TwitterClient.shared?.get(path, parameters: nil, progress: nil, success: completion, failure: failure)
+        get(path, parameters: nil, progress: nil, success: completion, failure: failure)
         
     }
     
-    func currentUser(success: @escaping (User) -> (), failure: (Error) -> ()){
-        TwitterClient.shared?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task, respone) in
+    func homeTimeline(success: @escaping ([Tweet]) -> (), failure: (Error) -> ()){
+        TwitterClient.shared?.getData(path: "1.1/statuses/home_timeline.json", completion: { (task, respone) in
             
-            let userDictionary = respone as! [String: AnyObject]
+            var tweets = [Tweet]()
+            
+            let dictionaries = respone as! [[String: AnyObject]]
+            
+            tweets = Tweet.tweetWithArray(dictionaries: dictionaries)
+
+            
+            success(tweets)
+            
+            }, failure: { (task, error) in
+                print(error)
+        })
+    }
+    
+    func currentUser(success: @escaping (User) -> (), failure: (Error) -> ()){
+        get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task, respone) in
+            
+            let userDictionary = respone as! NSDictionary
             
             let user = User(dictionary: userDictionary)
             

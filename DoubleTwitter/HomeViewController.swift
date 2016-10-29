@@ -20,24 +20,24 @@ class HomeViewController: UIViewController {
         tweetTableView.dataSource = self
         
         // Do any additional setup after loading the view.
-        
-        if let accessToken = UserDefaults.standard.string(forKey: "access_token_query"){
-            
-            TwitterClient.shared?.getData(path: "1.1/statuses/home_timeline.json", completion: { (task, respone) in
-//                print(respone)
-                
-                let dictionaries = respone as! [[String: AnyObject]]
-                
-                self.tweets = Tweet.tweetWithArray(dictionaries: dictionaries)
 
-                
-                self.tweetTableView.reloadData()
-                
-                
-                }, failure: { (task, error) in
-                    print(error)
-            })
-        }
+//        TwitterClient.shared?.fetchAccess(success: { (accessToken) in
+//            print("got accessToken: \(accessToken)")
+//            }, failure: { (error) in
+//                print(error)
+//        })
+        
+        TwitterClient.shared?.homeTimeline(success: { (tweets) in
+            
+            self.tweets = tweets
+            
+            self.tweetTableView.reloadData()
+            
+            }, failure: { (error) in
+                print(error)
+        })
+            
+        
     }
 
     override func didReceiveMemoryWarning() {
