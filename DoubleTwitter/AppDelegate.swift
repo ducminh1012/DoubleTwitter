@@ -17,6 +17,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if let accessTokenQuery = UserDefaults.standard.string(forKey: "access_token_query"){
+         
+            let accessToken = BDBOAuth1Credential(queryString: accessTokenQuery)
+            
+            print(accessToken)
+            
+            // get your storyboard
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // instantiate your desired ViewController
+            let rootController = storyboard.instantiateViewController(withIdentifier: "HomeNavViewController") as! UINavigationController
+            
+            // Because self.window is an optional you should check it's value first and assign your rootViewController
+            if let window = self.window {
+                window.rootViewController = rootController
+            }
+
+        }
+        
+        if User.currentUser != nil{
+            print("have current user")
+        }else{
+            print("no current user")
+        }
+        
         return true
     }
 
@@ -44,10 +70,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        TwitterClient.shared.requestToken = BDBOAuth1Credential(queryString: url.query)
-        TwitterClient.shared.fetchAccess(success: { (accessToken) in
+        TwitterClient.shared?.requestToken = BDBOAuth1Credential(queryString: url.query)
+        TwitterClient.shared?.fetchAccess(success: { (accessToken) in
             
-            TwitterClient.shared.accessToken = accessToken
+            TwitterClient.shared?.currentUser(success: { (user) in
+                User.currentUser = user
+                }, failure: { (error) in
+                    print(error)
+            })
+            
+            TwitterClient.shared?.accessToken = accessToken
+            
+            UserDefaults.standard.set(url.query, forKey: "access_token_query")
             
             // get your storyboard
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

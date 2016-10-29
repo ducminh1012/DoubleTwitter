@@ -9,17 +9,41 @@
 import UIKit
 
 class Tweet: NSObject {
-    var userName: String
-    var userAccount: String
-    var time: String
-    var text: String
-    var isRetweeted: Bool
+    var userName: String?
+    var userProfileUrl: URL?
+    var userAccount: String?
+    var time: Date?
+    var text: String?
+    var isRetweeted: Bool?
+    var retweetCount: Int?
+    var favoriteCount: Int?
     
     init(dict: [String: AnyObject]) {
-        userName = dict["user"] as? String ?? ""
-        userAccount = dict["account"] as? String ?? ""
-        time = dict["time"] as? String ?? ""
+        userName = dict["user"]?["name"] as? String ?? ""
+        userAccount = dict["user"]?["screen_name"] as? String ?? ""
+        userProfileUrl = URL(string: dict["user"]?["profile_image_url"] as! String)
+        
+        if let timeString = dict["created_at"] as? String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
+        time = dateFormatter.date(from: timeString)!
+        
+            
+            
         text = dict["text"] as? String ?? ""
         isRetweeted = dict["retweeted"] as? Bool ?? false
+        retweetCount = dict["retweet_count"] as? Int ?? 0
+            favoriteCount = dict["favorites_count"] as? Int ?? 0
+        }
+    }
+    
+    class func tweetWithArray(dictionaries: [[String: AnyObject]]) -> [Tweet]{
+        var tweets = [Tweet]()
+        
+        for dictionary in dictionaries{
+            tweets.append(Tweet(dict: dictionary))
+        }
+        
+        return tweets
     }
 }

@@ -19,7 +19,18 @@ class RetweetCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    
+    var tweet: Tweet! {
+        didSet{
+            nameLabel.text = tweet.userName
+            accountLabel.text = tweet.userAccount
+            avatarImageView.setImageWith(tweet.userProfileUrl!)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM-DD-YYYY"
+            timeLabel.text = dateFormatter.string(from: tweet.time!)
+            titleLabel.text = tweet.text
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

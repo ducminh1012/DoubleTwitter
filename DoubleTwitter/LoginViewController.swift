@@ -12,7 +12,7 @@ import BDBOAuth1Manager
 class LoginViewController: UIViewController {
 
     @IBAction func onLoginButton(_ sender: UIButton) {
-        TwitterClient.shared.fetchRequest()
+        TwitterClient.shared?.fetchRequest()
         
 //        performSegue(withIdentifier: "onLoginSuccess", sender: self)
         

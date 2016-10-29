@@ -53,11 +53,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="134" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xsm-S4-yJf">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReTweetCell" rowHeight="134" id="Y2a-Gp-kbo" customClass="RetweetCell" customModule="DoubleTwitter" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="retweetCell" rowHeight="134" id="Y2a-Gp-kbo" customClass="RetweetCell" customModule="DoubleTwitter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2a-Gp-kbo" id="Bi3-NK-HIO">
-                                            <frame key="frameInset" width="375" height="133"/>
+                                            <frame key="frameInset" width="375" height="133.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dh2-66-bnc">
@@ -148,6 +148,9 @@
                         <barButtonItem key="leftBarButtonItem" title="Sign out" id="tnw-q3-eKQ"/>
                         <barButtonItem key="rightBarButtonItem" title="New" id="5la-ev-fD6"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tweetTableView" destination="xsm-S4-yJf" id="UuL-2X-VUr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o68-xp-fr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
