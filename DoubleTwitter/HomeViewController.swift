@@ -11,6 +11,7 @@ import UIKit
 class HomeViewController: UIViewController {
 
     var tweets = [Tweet]()
+    let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tweetTableView: UITableView!
     override func viewDidLoad() {
@@ -18,15 +19,12 @@ class HomeViewController: UIViewController {
 
         tweetTableView.delegate = self
         tweetTableView.dataSource = self
+        tweetTableView.rowHeight = UITableViewAutomaticDimension
+        tweetTableView.estimatedRowHeight = 100
         
-        // Do any additional setup after loading the view.
-
-//        TwitterClient.shared?.fetchAccess(success: { (accessToken) in
-//            print("got accessToken: \(accessToken)")
-//            }, failure: { (error) in
-//                print(error)
-//        })
-
+        
+        refreshControl.addTarget(self, action: #selector(onPullToRefresh(refreshControl:)), for: .valueChanged)
+        tweetTableView.insertSubview(refreshControl, at: 0)
         
         TwitterClient.shared?.homeTimeline(success: { (tweets) in
             
@@ -48,6 +46,22 @@ class HomeViewController: UIViewController {
         
     }
 
+    func onPullToRefresh(refreshControl: UIRefreshControl){
+        
+        TwitterClient.shared?.homeTimeline(success: { (tweets) in
+            
+            self.refreshControl.endRefreshing()
+            
+            self.tweets = tweets
+            
+            self.tweetTableView.reloadData()
+            
+            }, failure: { (error) in
+                print(error)
+                self.refreshControl.endRefreshing()
+        })
+        
+    }
 
 }
 

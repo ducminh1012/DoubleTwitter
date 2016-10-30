@@ -50,6 +50,8 @@ class TwitterClient: BDBOAuth1SessionManager {
             
             let dictionaries = respone as! [[String: AnyObject]]
             
+            print(dictionaries)
+            
             tweets = Tweet.tweetWithArray(dictionaries: dictionaries)
 
             
