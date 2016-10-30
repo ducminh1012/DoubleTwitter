@@ -43,6 +43,13 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
     
+    func postData(path: String, dictionary: NSDictionary,completion: @escaping (_ task: URLSessionDataTask,_ respone: Any?) -> (), failure: @escaping (_ task: URLSessionDataTask?,_ error: Error) -> () ){
+        
+        
+        post(path, parameters: dictionary, progress: nil, success: completion, failure: failure)
+        
+    }
+    
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: (Error) -> ()){
         TwitterClient.shared?.getData(path: "1.1/statuses/home_timeline.json", completion: { (task, respone) in
             

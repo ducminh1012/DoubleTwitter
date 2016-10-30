@@ -14,6 +14,11 @@ class HomeViewController: UIViewController {
     let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tweetTableView: UITableView!
+    @IBAction func onNewTweetButton(_ sender: AnyObject) {
+        
+        
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,10 +69,14 @@ class HomeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let tweetDetailVC = segue.destination as! TweetDetailViewController
+        
+        if let tweetDetailVC = segue.destination as? TweetDetailViewController{
         
         let tweet = tweets[tweetTableView.indexPathForSelectedRow!.row]
         tweetDetailVC.tweet = tweet
+        }else if let newTweetVC = segue.destination as? NewTweetViewController{
+            
+        }
         
     }
 
