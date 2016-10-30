@@ -38,7 +38,7 @@ class Tweet: NSObject {
         text = dict["text"] as? String ?? ""
         isRetweeted = dict["retweeted"] as? Bool ?? false
         retweetCount = dict["retweet_count"] as? Int ?? 0
-            favoriteCount = dict["favorites_count"] as? Int ?? 0
+        favoriteCount = dict["favorite_count"] as? Int ?? 0
         }
     }
     

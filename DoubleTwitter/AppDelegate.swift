@@ -35,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            print("no current user")
 //        }
         
+        UINavigationBar.appearance().barTintColor = UIColor(red: 29.0/255, green: 202.0/255, blue: 255.0/255, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = UIColor.white
+        
         return true
     }
 

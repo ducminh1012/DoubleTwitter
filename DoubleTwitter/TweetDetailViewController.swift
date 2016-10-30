@@ -21,7 +21,9 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var retweetCountLabel: UILabel!
     
+    @IBOutlet weak var favoriteCountLabel: UILabel!
     @IBAction func onReplyButton(_ sender: AnyObject) {
     }
 
@@ -41,9 +43,14 @@ class TweetDetailViewController: UIViewController {
         accountLabel.text = tweet.userAccount
         profileImageView.setImageWith(tweet.userProfileUrl!)
         
-        timeLabel.text = tweet.timeFromNow
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "DD/MM/YYYY, hh:mm"
+        timeLabel.text = dateFormatter.string(from: tweet.time!)
+        
         textLabel.text = tweet.text
-
+        retweetCountLabel.text = tweet.retweetCount?.description
+        favoriteCountLabel.text = tweet.favoriteCount?.description
+        
     }
 
     override func didReceiveMemoryWarning() {
