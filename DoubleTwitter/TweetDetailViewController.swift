@@ -10,10 +10,40 @@ import UIKit
 
 class TweetDetailViewController: UIViewController {
 
+    @IBOutlet weak var retweetLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var accountLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var textLabel: UILabel!
+    
+    @IBAction func onReplyButton(_ sender: AnyObject) {
+    }
+
+    
+    @IBAction func onRetweetButton(_ sender: AnyObject) {
+    }
+    
+    @IBAction func onFavoriteButton(_ sender: AnyObject) {
+    }
+    
+    var tweet: Tweet!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        nameLabel.text = tweet.userName
+        accountLabel.text = tweet.userAccount
+        profileImageView.setImageWith(tweet.userProfileUrl!)
+        
+        timeLabel.text = tweet.timeFromNow
+        textLabel.text = tweet.text
+
     }
 
     override func didReceiveMemoryWarning() {

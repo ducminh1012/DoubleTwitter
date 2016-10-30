@@ -62,6 +62,14 @@ class HomeViewController: UIViewController {
         })
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let tweetDetailVC = segue.destination as! TweetDetailViewController
+        
+        let tweet = tweets[tweetTableView.indexPathForSelectedRow!.row]
+        tweetDetailVC.tweet = tweet
+        
+    }
 
 }
 
@@ -75,6 +83,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         cell.tweet = tweets[indexPath.row]
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showTweetDetail", sender: self)
     }
 }
 

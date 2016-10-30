@@ -142,7 +142,6 @@
                                             <outlet property="nameLabel" destination="o2y-Pg-V5U" id="aoS-HH-nmi"/>
                                             <outlet property="timeLabel" destination="rVu-xk-oUi" id="hQ9-b3-DBN"/>
                                             <outlet property="titleLabel" destination="y8k-pB-dsE" id="pa8-zm-uhu"/>
-                                            <segue destination="YX6-1f-vb1" kind="show" id="gsi-Es-VBo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -162,6 +161,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tweetTableView" destination="xsm-S4-yJf" id="UuL-2X-VUr"/>
+                        <segue destination="YX6-1f-vb1" kind="show" identifier="showTweetDetail" id="0UE-F1-C6E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o68-xp-fr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -211,21 +211,27 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBM-gk-4wM">
-                                <frame key="frameInset" minX="91" minY="183" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBM-gk-4wM">
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="BBM-gk-4wM" secondAttribute="height" multiplier="1:1" id="A8f-qj-N5x"/>
                                     <constraint firstAttribute="width" constant="30" id="Wve-ZN-IJb"/>
                                 </constraints>
                                 <state key="normal" image="reply"/>
+                                <connections>
+                                    <action selector="onReplyButton:" destination="YX6-1f-vb1" eventType="touchUpInside" id="0fy-wy-iNf"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLc-Af-5UJ">
-                                <frame key="frameInset" minX="148" minY="183" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLc-Af-5UJ">
                                 <state key="normal" image="retweet"/>
+                                <connections>
+                                    <action selector="onRetweetButton:" destination="YX6-1f-vb1" eventType="touchUpInside" id="wJv-lh-Mn9"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13w-AT-Jqe">
-                                <frame key="frameInset" minX="204" minY="183" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13w-AT-Jqe">
                                 <state key="normal" image="unfavorite"/>
+                                <connections>
+                                    <action selector="onFavoriteButton:" destination="YX6-1f-vb1" eventType="touchUpInside" id="Eq7-25-olz"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -241,6 +247,7 @@
                             <constraint firstItem="Wlq-Rl-Veh" firstAttribute="leading" secondItem="prw-dc-TNR" secondAttribute="trailing" constant="8" id="VVC-YX-wJr"/>
                             <constraint firstItem="mLc-Af-5UJ" firstAttribute="leading" secondItem="BBM-gk-4wM" secondAttribute="trailing" constant="27" id="Wtt-N4-v7W"/>
                             <constraint firstItem="EbZ-Bg-Lp8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="T9A-y9-sWI" secondAttribute="trailing" constant="8" id="YFJ-KM-7Wg"/>
+                            <constraint firstAttribute="trailing" secondItem="dZS-eo-vWi" secondAttribute="trailing" constant="8" id="ZSi-gx-KXU"/>
                             <constraint firstItem="dZS-eo-vWi" firstAttribute="top" secondItem="Wlq-Rl-Veh" secondAttribute="bottom" constant="8" id="apQ-TG-XVA"/>
                             <constraint firstItem="BBM-gk-4wM" firstAttribute="leading" secondItem="prw-dc-TNR" secondAttribute="trailing" constant="8" id="c0D-oG-2La"/>
                             <constraint firstItem="mLc-Af-5UJ" firstAttribute="height" secondItem="BBM-gk-4wM" secondAttribute="height" id="dxh-Xk-ap9"/>
@@ -254,13 +261,21 @@
                             <constraint firstItem="BBM-gk-4wM" firstAttribute="width" secondItem="BBM-gk-4wM" secondAttribute="height" multiplier="1:1" id="lgP-Dr-Su0"/>
                             <constraint firstItem="EbZ-Bg-Lp8" firstAttribute="top" secondItem="prw-dc-TNR" secondAttribute="top" id="pFP-u9-c6M"/>
                             <constraint firstItem="13w-AT-Jqe" firstAttribute="top" secondItem="BBM-gk-4wM" secondAttribute="top" id="vbT-1z-XkU"/>
-                            <constraint firstItem="BBM-gk-4wM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dZS-eo-vWi" secondAttribute="bottom" constant="5" id="wsI-Nm-n7k"/>
+                            <constraint firstItem="BBM-gk-4wM" firstAttribute="top" secondItem="dZS-eo-vWi" secondAttribute="bottom" constant="5" id="wsI-Nm-n7k"/>
                             <constraint firstItem="prw-dc-TNR" firstAttribute="top" secondItem="JoE-Yt-QTV" secondAttribute="bottom" constant="5" id="xDM-PL-T2Z"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tweet" id="URB-YN-exI">
                         <barButtonItem key="rightBarButtonItem" title="Reply" id="9r2-gz-v5W"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="accountLabel" destination="T9A-y9-sWI" id="JgZ-mS-ux8"/>
+                        <outlet property="nameLabel" destination="Wlq-Rl-Veh" id="r7q-nc-hr6"/>
+                        <outlet property="profileImageView" destination="prw-dc-TNR" id="OmA-cx-CPJ"/>
+                        <outlet property="retweetLabel" destination="JoE-Yt-QTV" id="CTA-7A-zzO"/>
+                        <outlet property="textLabel" destination="dZS-eo-vWi" id="5OT-X2-6M2"/>
+                        <outlet property="timeLabel" destination="EbZ-Bg-Lp8" id="670-Ql-Pvz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hWc-m1-wdj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
