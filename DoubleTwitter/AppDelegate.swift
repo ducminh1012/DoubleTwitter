@@ -18,22 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        if User.currentUser != nil{
-            print("have current user")
-            
-            // get your storyboard
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            // instantiate your desired ViewController
-            let rootController = storyboard.instantiateViewController(withIdentifier: "HomeNavViewController") as! UINavigationController
-            
-            // Because self.window is an optional you should check it's value first and assign your rootViewController
-            if let window = self.window {
-                window.rootViewController = rootController
-            }
-        }else{
-            print("no current user")
-        }
+//        if User.currentUser != nil{
+//            print("have current user")
+//            
+//            // get your storyboard
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            
+//            // instantiate your desired ViewController
+//            let rootController = storyboard.instantiateViewController(withIdentifier: "HomeNavViewController") as! UINavigationController
+//            
+//            // Because self.window is an optional you should check it's value first and assign your rootViewController
+//            if let window = self.window {
+//                window.rootViewController = rootController
+//            }
+//        }else{
+//            print("no current user")
+//        }
         
         return true
     }

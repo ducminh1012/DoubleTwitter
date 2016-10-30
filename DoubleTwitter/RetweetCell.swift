@@ -27,7 +27,7 @@ class RetweetCell: UITableViewCell {
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM-DD-YYYY"
-            timeLabel.text = dateFormatter.string(from: tweet.time!)
+            timeLabel.text = tweet.timeFromNow
             titleLabel.text = tweet.text
         }
     }

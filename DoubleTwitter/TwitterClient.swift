@@ -11,8 +11,7 @@ import BDBOAuth1Manager
 
 class TwitterClient: BDBOAuth1SessionManager {
     static let shared = TwitterClient(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "gCBUTVXbqZgU2TN10A66zK4T3", consumerSecret: "f2Uh305HbV9f4LOyJOSifvvTInUSQYOxUERxjIm2Vvt99AgMr7")
-    
-//    var client: BDBOAuth1SessionManager?
+
     var requestToken: BDBOAuth1Credential?
     var accessToken: BDBOAuth1Credential?
 

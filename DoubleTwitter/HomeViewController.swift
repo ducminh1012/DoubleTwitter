@@ -26,6 +26,7 @@ class HomeViewController: UIViewController {
 //            }, failure: { (error) in
 //                print(error)
 //        })
+
         
         TwitterClient.shared?.homeTimeline(success: { (tweets) in
             
@@ -36,7 +37,7 @@ class HomeViewController: UIViewController {
             }, failure: { (error) in
                 print(error)
         })
-            
+        
         
     }
 
